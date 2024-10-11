@@ -138,22 +138,33 @@ class CurrencyExchangeView(LoginRequiredMixin, View):
 
     def get(self, request):
         _, currency_choices = getCurrencyParams()
-        '''
-        Generate a context variable with all values from empty_context and the converted values of currency_choices and username
-        currency_choices contains the value of the currency_choices variable
-        username contains the name of the current user
-        '''
+        context = {
+            **self.empty_context,
+            'currency_choices': currency_choices,
+            'username': request.user.username
+        }
         return render(request, self.template_name, context)
 
     def post(self, request):
         data, currency_choices = getCurrencyParams()
-        '''
-            Improve this method:
-            1) add the process of forming the variable amount.
-            If the amount value from the form is converted to float type, then write the amount value from the form converted to float to the amount variable. Otherwise, write None.
-            2) add a currency variable that contains the currency value from the form.
-            3) if the variables data or amount contain None, return page with empty context (empty_context). Otherwise, perform the following steps
-            4) generate the exchange_rate variable by calculating the corresponding value from the data variable
-            5) generate the exchanged_amount variable, which contains the converted currency to two decimal places.
-            6) form a context from the previously created variables and return a template with it.
-        '''
+        try:
+            amount = float(request.POST.get('amount'))
+        except (TypeError, ValueError):
+            amount = None
+
+        currency = request.POST.get('currency')
+
+        if data is None or amount is None:
+            return render(request, self.template_name, self.empty_context)
+
+        exchange_rate = data.get(currency)
+        exchanged_amount = round(amount * exchange_rate, 2) if exchange_rate else None
+
+        context = {
+            'currency_choices': currency_choices,
+            'amount': amount,
+            'currency': currency,
+            'exchanged_amount': exchanged_amount,
+            'username': request.user.username
+        }
+        return render(request, self.template_name, context)
