@@ -125,15 +125,11 @@ class ViewTransactionHistoryView(LoginRequiredMixin, ListView):
     ordering = ['-datetime']
 
     def get_queryset(self):
-        '''
-        This method should return the entire transaction history of the current user
-        '''
+        return History.objects.filter(user=self.request.user).order_by('-datetime')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        '''
-        Add the 'username' key with the value of username to the context.
-        '''
+        context['username'] = self.request.user.username
         return context
 
 class CurrencyExchangeView(LoginRequiredMixin, View):
