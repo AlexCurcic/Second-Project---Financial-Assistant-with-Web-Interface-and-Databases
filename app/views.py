@@ -14,12 +14,14 @@ def logout_view(request):
     return redirect('login') 
 
 def getBalance(user):
-    pass # this line can be deleted 
-    '''
-    Write a function that finds the user's balance and returns it with the float data type. 
-    To calculate the balance, calculate the sum of all user's deposits and the sum of all withdrawals.
-    Then subtract the withdrawal amount from the deposit amount and return the result.
-    '''
+    transactions = History.objects.filter(user=user, status='success')
+
+    total_deposits = sum(transaction.amount for transaction in transactions if transaction.type == 'deposit')
+    total_withdrawals = sum(transaction.amount for transaction in transactions if transaction.type == 'withdraw')
+    balance = total_deposits - total_withdrawals
+
+    return float(balance)
+
 def getCurrencyParams():
     pass # this line can be deleted 
     '''
