@@ -23,20 +23,14 @@ def getBalance(user):
     return float(balance)
 
 def getCurrencyParams():
-    pass # this line can be deleted 
-    '''
-    Write a function that makes a GET request to the following address 
-    https://fake-api.apps.berlintech.ai/api/currency_exchange
-
-    if the response code is 200 return a list of two values:
-    - a dictionary of data that came from the server
-    - a list of strings based on the received data 
-    mask to form the string f'{currency} ({rate})'.
-    example string: 'USD (1.15)'
-
-    if the server response code is not 200 you should 
-    return the list [None, None]
-    '''
+    response = requests.get('https://fake-api.apps.berlintech.ai/api/currency_exchange')
+    
+    if response.status_code == 200:
+        data = response.json()
+        currency_choices = [(currency, f'{currency} ({rate})') for currency, rate in data.items()]
+        return [data, currency_choices]
+    else:
+        return [None, None]
 
 
 class CreateUserView(CreateView):
