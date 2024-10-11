@@ -71,32 +71,52 @@ class BalanceOperationsView(LoginRequiredMixin, View):
     template_name = 'app/operations.html'
     
     def get(self, request):
-        pass # this line can be deleted 
-        '''
-        This method should return the page given in template_name with a context.
-
-        Context is a dictionary with balance and username keys.
-        The balance key contains the result of the getBalance function
-        username contains the username of the user.
-        '''
+        balance = getBalance(request.user)
+        context = {
+            'balance': balance,
+            'username': request.user.username
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request):
-        pass # this line can be deleted 
-        '''
-        This method should process a balance transaction.
-        For this purpose it is necessary to add an entry to the History model. 
-        
-        status - if the amount on the account is not enough when attempting to withdraw funds, the status is failure, otherwise withdraw
-        amount - amount of operation, obtained from the form
-        type - type of operation (withdraw/deposit), the value is obtained from the form.
-        user - object of the current user
+        amount = request.POST.get('amount')
+        try:
+            amount = float(amount)
+        except (TypeError, ValueError):
+            amount = None
+        operation_type = request.POST.get('operation')
+        user = request.user
 
-        This method should return the page given in template_name with a context.
+        if amount is None or operation_type not in ['deposit', 'withdraw']:
+            balance = getBalance(user)
+            context = {
+                'balance': balance,
+                'username': user.username
+            }
+            return render(request, self.template_name, context)
 
-        Context is a dictionary with balance and username keys.
-        The balance key contains the result of the getBalance function (after account update)
-        username contains the username of the user.
-        '''
+        if operation_type == 'withdraw':
+            balance = getBalance(user)
+            if balance < amount:
+                status = 'failure'
+            else:
+                status = 'success'
+        else:
+            status = 'success'
+
+        History.objects.create(
+            user=user,
+            amount=amount,
+            type=operation_type,
+            status=status
+        )
+
+        balance = getBalance(user)
+        context = {
+            'balance': balance,
+            'username': user.username
+        }
+        return render(request, self.template_name, context)
 
 class ViewTransactionHistoryView(LoginRequiredMixin, ListView):
     model = History
