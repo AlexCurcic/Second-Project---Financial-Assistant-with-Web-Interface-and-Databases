@@ -63,9 +63,8 @@ class MainMenuView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        '''
-        If the user is authenticated, then add the 'username' key with the value of username to the context.
-        '''
+        if self.request.user.is_authenticated:
+            context['username'] = self.request.user.username
         return context
 
 class BalanceOperationsView(LoginRequiredMixin, View):
