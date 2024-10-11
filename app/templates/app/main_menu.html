@@ -15,15 +15,15 @@
     <div class="container mt-5">
         <h1>Main Menu.</h1>
         <ul class="list-group">
-            <!-- 
-            In this block, add three links. 
-            1) a urlpattern link with the name operations and the content Balance Operations
-            2) a urlpattern link with the name currency_exchange and the content Currency Exchange
-            3) a urlpattern link with the name history and content View Transaction History
-            
-            example of one link 
-            <li class="list-group-item"><a href="link-value" class="btn btn-primary">link content</a></li> 
-            -->
+            <li class="list-group-item">
+                <a href="{% url 'operations' %}" class="btn btn-primary">Balance Operations</a>
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'currency_exchange' %}" class="btn btn-primary">Currency Exchange</a>
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'history' %}" class="btn btn-primary">View Transaction History</a>
+            </li>
         </ul>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
