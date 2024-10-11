@@ -14,17 +14,11 @@
     </nav>
     <div class="container mt-5">
         <h1>Balance Operations</h1>
-        <!-- 
-        Using the conditional operator output the balance 
-        if it is not equal to 0 and output the chop when 
-        the balance is not equal to 0
-
-        Example of output with a zero balance:
-        <p>You have a zero balance</p>
-
-        Example of output with a non-zero balance: 
-        <p>Your current balance: $215</p> 
-        -->
+        {% if balance != 0 %}
+            <p>Your current balance: ${{ balance }}</p>
+        {% else %}
+            <p>You have a zero balance</p>
+        {% endif %}
         
         <div class="row">
             <div class="col-md-12">
