@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <span class="navbar-brand">Hello {{ username }}</span>
+        <a class="navbar-brand" href="{% url 'main_menu' %}">Main menu</a>
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+    </nav>
+    <div class="container mt-5">
+        <h1>Main Menu.</h1>
+        <ul class="list-group">
+            <!-- 
+            In this block, add three links. 
+            1) a urlpattern link with the name operations and the content Balance Operations
+            2) a urlpattern link with the name currency_exchange and the content Currency Exchange
+            3) a urlpattern link with the name history and content View Transaction History
+            
+            example of one link 
+            <li class="list-group-item"><a href="link-value" class="btn btn-primary">link content</a></li> 
+            -->
+        </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

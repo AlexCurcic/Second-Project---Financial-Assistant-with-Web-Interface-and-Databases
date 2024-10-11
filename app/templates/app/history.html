@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <span class="navbar-brand">Hello {{ username }}</span>
+        <a class="navbar-brand" href="{% url 'main_menu' %}">Main menu</a>
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+    </nav>
+    <div class="container mt-5">
+        <h1>Transaction History</h1>
+        <ul class="list-group">
+            <!-- 
+            Using a loop, display the transactions. Each transaction should be displayed as a card. If there are no transactions, display the element:
+            <li class="list-group-item">No transactions found.</li>
+
+            Example card:
+            <li class="list-group-item">
+                <p>Date: 28/03/2024 12:38:55</p>
+                <p>Status: success</p>
+                <p>Balance After: 100.00</p>
+            </li>
+
+            For date, use the filter date: "d/m/Y H:i:s".
+            -->
+        </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

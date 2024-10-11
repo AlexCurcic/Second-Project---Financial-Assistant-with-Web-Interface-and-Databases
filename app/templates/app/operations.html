@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Operations</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <span class="navbar-brand">Hello {{ username }}</span>
+        <a class="navbar-brand" href="{% url 'main_menu' %}">Main menu</a>
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+    </nav>
+    <div class="container mt-5">
+        <h1>Balance Operations</h1>
+        <!-- 
+        Using the conditional operator output the balance 
+        if it is not equal to 0 and output the chop when 
+        the balance is not equal to 0
+
+        Example of output with a zero balance:
+        <p>You have a zero balance</p>
+
+        Example of output with a non-zero balance: 
+        <p>Your current balance: $215</p> 
+        -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post" action="{% url 'operations' %}" class="mb-3">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="operation_select">Select Operation:</label>
+                        <select id="operation_select" name="operation" class="form-control" required>
+                            <option value="deposit">Deposit</option>
+                            <option value="withdraw">Withdraw</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount:</label>
+                        <input type="number" id="amount" name="amount" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                </form>
+            </div>            
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
