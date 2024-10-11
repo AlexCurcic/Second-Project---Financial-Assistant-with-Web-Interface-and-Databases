@@ -22,28 +22,20 @@
             <div class="form-group">
                 <label for="currency">Currency:</label>
                 <select id="currency" name="currency" class="form-control" required>
-                    <!-- 
-                        Using the loop, display currency_choices. the value 
-                        should be currency and the option label should be the 
-                        content of the option tag
-
-                        Example: <option value="USD">USD (1.15)</option> 
-                    -->
+                    {% for currency, label in currency_choices %}
+                        <option value="{{ currency }}">{{ label }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Exchange</button>
         </form>
-        <!-- 
-        Add a conditional operator. If there are amount, currency and 
-        exchanged_amount values, they should be displayed in the next layout 
-        block, otherwise nothing needs to be displayed.
-        
+        {% if amount and currency and exchanged_amount %}
         <div class="mt-3">
-            <p><strong>Amount:</strong> amount value </p>
-            <p><strong>Currency:</strong> currency value</p>
-            <p><strong>Exchanged Amount:</strong> exchanged_amount value</p>
-        </div> 
-        -->
+            <p><strong>Amount:</strong> {{ amount }}</p>
+            <p><strong>Currency:</strong> {{ currency }}</p>
+            <p><strong>Exchanged Amount:</strong> {{ exchanged_amount }}</p>
+        </div>
+        {% endif %}
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
